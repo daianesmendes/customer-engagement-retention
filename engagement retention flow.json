@@ -1,0 +1,220 @@
+{
+  "name": "Engagement & Retention",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Análise de Engajamento",
+        "formDescription": "Informe o ID da URL (CustomerX) do cliente para consultar dados e acionar o fluxo de retenção.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "ID URL",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "E-mail do colaborador (quem receberá a análise)",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "buttonLabel": "Gerar diagnóstico do cliente",
+          "path": "retencao_e_engajamento"
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "id": "b0ae3688-ed25-421a-bf2c-f96a454980b1",
+      "name": "forms",
+      "webhookId": "<REDACTED>"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT ... WHERE ec.url_customerx = {{ $json[\"ID URL\"] }}"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "id": "23b17150-ea69-47c9-a37f-e700ac141558",
+      "name": "busca dados",
+      "credentials": {
+        "microsoftSql": {
+          "id": "<REDACTED>",
+          "name": "SQL OP PROD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.customerx.com.br/api/v1/clients",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "id",
+              "value": "={{ $json.id_url_cx }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<REDACTED>"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "id": "c222a961-c70e-47e9-8479-967e03477029",
+      "name": "get dados cliente"
+    },
+    {
+      "parameters": {
+        "url": "https://api.customerx.com.br/api/v1/csat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<REDACTED>"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "id": "68112a7f-78f8-43ad-a365-8371a48b68b5",
+      "name": "get csat"
+    },
+    {
+      "parameters": {
+        "url": "https://api.customerx.com.br/api/v1/net_promoter_scores",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<REDACTED>"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "id": "9845f5f6-8c0f-4d0f-9843-63188b75ed96",
+      "name": "get nps"
+    },
+    {
+      "parameters": {
+        "url": "https://api.customerx.com.br/api/v1/tasks_follow_ups",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<REDACTED>"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "id": "ecc4d1b9-5e4b-4240-8cde-75041be0c418",
+      "name": "get tarefas da jornada"
+    },
+    {
+      "parameters": {
+        "url": "https://api.customerx.com.br/api/v1/tasks_follow_ups/comments",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<REDACTED>"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "id": "3c4bce16-00be-4be9-9b07-e93e28935c33",
+      "name": "get comentários"
+    },
+    {
+      "parameters": {
+        "url": "https://treinamentos.obraprima.eng.br/admin/api/v2/event-logs",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<REDACTED>"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Lw-Client",
+              "value": "<REDACTED>"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "id": "8aea104f-e819-4b27-ac1c-135fa3dc05e7",
+      "name": "get event-logs"
+    },
+    {
+      "parameters": {
+        "url": "https://treinamentos.obraprima.eng.br/admin/api/v2/users/{{ $json.learnworlds_id }}/progress",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "<REDACTED>"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Lw-Client",
+              "value": "<REDACTED>"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "id": "654de36e-23d1-403a-a879-269272daa7f0",
+      "name": "get progresso"
+    }
+  ]
+}
