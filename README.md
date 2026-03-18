@@ -16,6 +16,7 @@ Movidesk (Tickets de suporte e CSAT).
 CustomerX (Metas de sucesso e NPS).
 
 LearnWorlds (Engajamento em treinamentos EAD).
+![Blueprint do Fluxo n8n](workflow-blueprint.jpeg)
 
 Manipulação Avançada de Dados: Uso de JavaScript (Node.js) para sanitização de HTML, tratamento de arrays complexos e normalização de payloads para consumo da IA.
 
