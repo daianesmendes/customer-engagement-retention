@@ -1,4 +1,5 @@
 AI-Powered Retention & Engagement Analysis (n8n + SQL + LLM)
+
 Este projeto apresenta um sistema avançado de BI Reativo e Análise Preditiva de Churn desenvolvido no n8n. O fluxo integra dados de múltiplas plataformas (CRM, Suporte, EAD e ERP) para gerar diagnósticos automáticos sobre a saúde do cliente.
 
 🚀 Competências Técnicas Destacadas
