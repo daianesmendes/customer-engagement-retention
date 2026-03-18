@@ -3,6 +3,7 @@ AI-Powered Retention & Engagement Analysis (n8n + SQL + LLM)
 Este projeto apresenta um sistema avançado de BI Reativo e Análise Preditiva de Churn desenvolvido no n8n. O fluxo integra dados de múltiplas plataformas (CRM, Suporte, EAD e ERP) para gerar diagnósticos automáticos sobre a saúde do cliente.
 
 🚀 Competências Técnicas Destacadas
+
 Arquitetura de Dados (SQL Customizado): Desenvolvimento integral da view_retencao_cockpit em MS SQL Server. Esta view consolida indicadores de saúde, uso de módulos e sinais de risco (inadimplência, baixa atividade) em uma única fonte de verdade.
 
 Engenharia de Prompt & IA: Implementação de agentes de IA (LLM) utilizando JSON Schema para extração de insights qualitativos de feedbacks do NPS e tickets de suporte.
